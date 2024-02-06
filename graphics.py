@@ -34,3 +34,15 @@ def type_effect(stdscr, y, x, text, base_delay=0.03):
     return y+1
 
 
+def exit_script(stdscr, y):
+    stdscr.clear()
+    type_effect(stdscr, y, 0, 'Now exiting...')
+    curses.napms(2000)
+    curses.endwin()
+
+def screen_setup(stdscr):
+    curses.start_color()
+    curses.init_pair(1, 10, curses.COLOR_BLACK)
+    stdscr.clear()
+
+
