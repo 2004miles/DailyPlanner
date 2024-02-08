@@ -1,4 +1,3 @@
-import sqlite3
 import curses
 import os
 import graphics
@@ -9,12 +8,13 @@ import database
 def setup(stdscr):
     graphics.screen_setup(stdscr)
 
-    start_message ="""-------------------
+    graphics._print_ascii_title(stdscr)
+    start_message ="""
 Hello anon. You have run the setup script for DailyPlanner.
 Press ESC if you wish to close this script.
 Otherwise, press any other key to continue.
 """
-    y = graphics.type_effect(stdscr, 0, 0, start_message)
+    y = graphics.type_effect(stdscr, 5, 0, start_message)
 
     key = stdscr.getch()
     if key == 27:  # ESC
@@ -56,10 +56,12 @@ def create_todo_list(stdscr, y, name):
     db_file = os.path.join(db_path, f'{name}todolist.db')
     conn = database.init_todolist_db(db_file)
 
-    database.add_task(stdscr, y, conn) 
     conn.close()
     graphics.exit_script(stdscr, 0)
 
+
+def setup_schedule():
+    pass
 
 if __name__ == "__main__":
     curses.wrapper(setup)

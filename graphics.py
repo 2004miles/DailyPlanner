@@ -3,6 +3,27 @@ import time
 import curses
 
 
+def _print_ascii_title(stdscr):
+    ascii_title = """
+ ___   ___  ___  _    __   __ ___  _     ___  _  _  _  _  ___  ___ 
+|   \ /   \|_ _|| |   \ \ / /| _ \| |   /   \| \| || \| || __|| _ \\
+| |) || - | | | | |__  \   / |  _/| |__ | - || .  || .  || _| |   /
+|___/ |_|_||___||____|  |_|  |_|  |____||_|_||_|\_||_|\_||___||_|_\\
+         """
+    for y, line in enumerate(ascii_title.splitlines(), 0):
+        stdscr.addstr(y, 0, line, curses.color_pair(1))
+    stdscr.refresh()
+
+
+def _print_centered(stdscr, y, message, wait_for_key=False):
+    h, w = stdscr.getmaxyx()
+    for line in message.split('\n'):
+        x = w // 2 - len(line) // 2
+        y = graphics.type_effect(stdscr, y, x, line)
+    if wait_for_key:
+        stdscr.getch()
+    return y
+
 def type_effect(stdscr, y, x, text, base_delay=0.03):
  
     for char in text:
@@ -36,6 +57,9 @@ def type_effect(stdscr, y, x, text, base_delay=0.03):
 
 def exit_script(stdscr, y):
     stdscr.clear()
+    stdscr.keypad(False)
+    curses.nocbreak()
+    curses.echo()
     type_effect(stdscr, y, 0, 'Now exiting...')
     curses.napms(2000)
     curses.endwin()
@@ -43,6 +67,7 @@ def exit_script(stdscr, y):
 def screen_setup(stdscr):
     curses.start_color()
     curses.init_pair(1, 10, curses.COLOR_BLACK)
+    curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
     stdscr.clear()
 
 
