@@ -19,7 +19,7 @@ def _print_centered(stdscr, y, message, wait_for_key=False):
     h, w = stdscr.getmaxyx()
     for line in message.split('\n'):
         x = w // 2 - len(line) // 2
-        y = graphics.type_effect(stdscr, y, x, line)
+        y = type_effect(stdscr, y, x, line)
     if wait_for_key:
         stdscr.getch()
     return y

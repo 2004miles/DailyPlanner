@@ -29,7 +29,8 @@ def main(stdscr):
     stdscr.keypad(True)
     try:
         if not os.path.exists('databases/'):
-            y = graphics.type_effect(stdscr, y, 'Please run the setup.py and follow the prompts to generate a database.', True) 
+            y = graphics.type_effect(stdscr, y, 'Please run the setup.py and follow the prompts to generate a database.\nOtherwise, check your in the correct working directory.', True)
+            curses.napms(4000)
         graphics._print_ascii_title(stdscr)
 
 
